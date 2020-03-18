@@ -9,19 +9,20 @@ package edu.unicundi.relevos;
  *
  * @author Andres Gomez-Ruby Cardenas
  */
-public class Corredor {
+public class Corredor extends Thread {
    private String equipo1;
    private String equipo2;
    private String equipo3;
    private int posicion1;
    private int posicion2;
+   Equipo equipo;
 
-    public Corredor(int posicion1, int posicion2) {
-        
+    public Corredor(int posicion1, int posicion2, Equipo equipo) {
+        this.equipo = equipo;
         this.posicion1 = posicion1;
         this.posicion2 = posicion2;
     }
-
+        
     public String getEquipo1() {
         return equipo1;
     }

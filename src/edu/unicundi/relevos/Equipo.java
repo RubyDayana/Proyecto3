@@ -7,7 +7,7 @@ package edu.unicundi.relevos;
 
 /**
  *
- * @author PIPE
+ * @author Andres Gomez-Ruby Cardenas
  */
 public class Equipo {
     private String nombreEquipo;    
@@ -23,6 +23,10 @@ public class Equipo {
         this.posicionCorredor3=40;
         
     }
+    public Equipo() {
+
+    }
+    
 
     public String getNombreEquipo() {
         return nombreEquipo;
