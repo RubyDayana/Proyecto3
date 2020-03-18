@@ -5,24 +5,89 @@
  */
 package edu.unicundi.relevos;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Andres Gomez-Ruby Cardenas
  */
 public class Corredor extends Thread {
-   private String equipo1;
-   private String equipo2;
-   private String equipo3;
-   private int posicion1;
-   private int posicion2;
-   Equipo equipo;
+
+    private String equipo1;
+    private String equipo2;
+    private String equipo3;
+    private int posicion1;
+    private int posicion2;
+    Equipo equipo;
+    private int posicionActual;
 
     public Corredor(int posicion1, int posicion2, Equipo equipo) {
         this.equipo = equipo;
         this.posicion1 = posicion1;
         this.posicion2 = posicion2;
     }
-        
+
+    @Override
+    public void run() {
+        if (posicion1 == 0) {
+            while (true) {
+                posicionActual = 1;
+                if (posicionActual >= 20) {
+                    synchronized (equipo) {
+                        equipo.notifyAll();
+                    }
+                    break;
+                } else {
+                    synchronized (equipo) {
+                        try {
+                            equipo.wait();
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+
+                if (posicionActual == 20) {
+                    while (true) {
+
+                        if (posicionActual >= 20) {
+                            equipo.setPosicionCorredor2(20);
+
+                            synchronized (equipo) {
+                                equipo.notifyAll();
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    public void correr() {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Equipo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int pasos = (int) Math.floor(Math.random() * 6 + 1);
+        switch (posicionActual) {
+            case 1:
+                equipo.setPosicionCorredor1(equipo.getPosicionCorredor1() + pasos);
+                break;
+
+            case 2:
+                equipo.setPosicionCorredor2(equipo.getPosicionCorredor1() + pasos);
+                break;
+            case 3:
+                equipo.setPosicionCorredor3(equipo.getPosicionCorredor1() + pasos);
+                break;
+        }
+
+    }
+
     public String getEquipo1() {
         return equipo1;
     }
@@ -62,6 +127,5 @@ public class Corredor extends Thread {
     public void setPosicion2(int posicion2) {
         this.posicion2 = posicion2;
     }
-   
-   
+
 }
