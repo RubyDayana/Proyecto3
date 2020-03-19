@@ -32,7 +32,7 @@ public class Corredor extends Thread {
     public void run() {
         if (posicion1 == 0) {
             while (true) {
-                posicionActual = 1;
+                posicionActual = correr();
                 if (posicionActual >= 20) {
                     synchronized (equipo) {
                         equipo.notifyAll();
@@ -66,7 +66,7 @@ public class Corredor extends Thread {
 
     }
 
-    public void correr() {
+    public int correr() {
         try {
             Thread.sleep(100);
         } catch (InterruptedException ex) {
@@ -76,18 +76,43 @@ public class Corredor extends Thread {
         switch (posicionActual) {
             case 1:
                 equipo.setPosicionCorredor1(equipo.getPosicionCorredor1() + pasos);
-                break;
+                return equipo.getPosicionCorredor1();
 
             case 2:
                 equipo.setPosicionCorredor2(equipo.getPosicionCorredor1() + pasos);
-                break;
+                return equipo.getPosicionCorredor2();
+
             case 3:
                 equipo.setPosicionCorredor3(equipo.getPosicionCorredor1() + pasos);
-                break;
+                return equipo.getPosicionCorredor3();
         }
-
+        return 0;
     }
 
+    public void equipos() {
+       switch (equipo.imprimirPosicion()) {
+            case "Cachacos":
+               equipo1 = equipo.imprimirPosicion();
+                System.out.println(equipo1);
+                break;
+               
+            case "Antioqueños":
+                equipo2=equipo.imprimirPosicion();
+                        System.out.println();
+                break;
+            case"Llaneros":
+                equipo3=equipo.imprimirPosicion();
+        }
+    }
+public void sincronizadoEspera() {
+        synchronized (equipo) {
+            try {
+                equipo.wait();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     public String getEquipo1() {
         return equipo1;
     }
