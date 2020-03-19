@@ -31,44 +31,77 @@ public class Corredor extends Thread {
     @Override
     public void run() {
         if (posicion1 == 0) {
-            while (true) {
-                posicionActual = correr();
-                if (posicionActual >= 20) {
-                    synchronized (equipo) {
-                        equipo.notifyAll();
-                    }
-                    break;
-                } else {
-                    synchronized (equipo) {
-                        try {
-                            equipo.wait();
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                }
-
-                if (posicionActual == 20) {
-                    while (true) {
-
-                        if (posicionActual >= 20) {
-                            equipo.setPosicionCorredor2(20);
-
-                            synchronized (equipo) {
-                                equipo.notifyAll();
-                            }
-                            break;
-                        }
-                    }
-                }
-            }
+            corredorUno();
+        } else {
+            esperaJugadores();
+        }
+        if (posicion1 == 20) {
+            corredorDos();
+        } else {
+            esperaJugadores();
+        }
+        if (posicion1 == 60) {
+            corredorTres();
+        } else {
+            esperaJugadores();
         }
 
     }
 
+    public void corredorUno() {
+        while (true) {
+            posicionActual=1;
+            int pasoActual = correr();
+            if (pasoActual >= 20) {
+                equipo.setPosicionCorredor1(20);
+                synchronized (equipo) {
+                    equipo.notifyAll();
+                }
+                break;
+            }
+        }
+    }
+
+    public void corredorDos() {
+        while (true) {
+            posicionActual=2;
+            int pasoActual = correr();
+            if (pasoActual >= 40) {
+                equipo.setPosicionCorredor2(40);
+                synchronized (equipo) {
+                    equipo.notifyAll();
+                }
+                break;
+            }
+        }
+    }
+
+    public void corredorTres() {
+        posicionActual=3;
+        while (true) {
+            int pasoActual = correr();
+            if (pasoActual >= 60) {
+                equipo.setPosicionCorredor3(60);
+
+                if (equipo.getNombreEquipo().equals("Cachacos")) {
+                    equipo.setNombreEquipo("Cachacos");
+
+                } else if (equipo.getNombreEquipo().equals("Antioqueños")) {
+                    equipo.setNombreEquipo("Antioqueños");
+
+                } else if (equipo.getNombreEquipo().equals("Llaneros")) {
+                    equipo.setNombreEquipo("Llaneros");
+
+                }
+                    equipo.getNombreEquipo();
+                //System.exit(0);
+            }
+        }
+    }
+
     public int correr() {
         try {
-            Thread.sleep(100);
+            Thread.sleep(600);
         } catch (InterruptedException ex) {
             Logger.getLogger(Equipo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,35 +109,43 @@ public class Corredor extends Thread {
         switch (posicionActual) {
             case 1:
                 equipo.setPosicionCorredor1(equipo.getPosicionCorredor1() + pasos);
+                equipos();
                 return equipo.getPosicionCorredor1();
 
             case 2:
                 equipo.setPosicionCorredor2(equipo.getPosicionCorredor1() + pasos);
+                equipos();
                 return equipo.getPosicionCorredor2();
 
             case 3:
                 equipo.setPosicionCorredor3(equipo.getPosicionCorredor1() + pasos);
+                equipos();
                 return equipo.getPosicionCorredor3();
         }
         return 0;
     }
 
     public void equipos() {
-       switch (equipo.imprimirPosicion()) {
+        switch (equipo.imprimirPosicion()) {
             case "Cachacos":
-               equipo1 = equipo.imprimirPosicion();
+                equipo1 = equipo.imprimirPosicion();
                 System.out.println(equipo1);
                 break;
-               
+
             case "Antioqueños":
-                equipo2=equipo.imprimirPosicion();
-                        System.out.println();
+                equipo2 = equipo.imprimirPosicion();
+                System.out.println(equipo2);
                 break;
-            case"Llaneros":
-                equipo3=equipo.imprimirPosicion();
+            case "Llaneros":
+                equipo3 = equipo.imprimirPosicion();
+                System.out.println(equipo3);
+                System.out.println();
+                System.out.println();
+                System.out.println();
         }
     }
-public void sincronizadoEspera() {
+
+    public void esperaJugadores() {
         synchronized (equipo) {
             try {
                 equipo.wait();
@@ -113,6 +154,7 @@ public void sincronizadoEspera() {
             }
         }
     }
+
     public String getEquipo1() {
         return equipo1;
     }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package edu.unicundi.relevos;
+import edu.unicundi.relevos.Equipo;
 
 /**
  *
@@ -50,7 +51,7 @@ public class Main {
         
         System.out.println("¡FELICIDADES EQUIPO " + equipo.getNombreEquipo() + "HAN GANADO LA CARRERA POR RELEVOS!");
            
-       
+       System.exit(0);
         
     }
 }
