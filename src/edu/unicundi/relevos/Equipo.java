@@ -8,16 +8,19 @@ package edu.unicundi.relevos;
 /**
  *
  * @author Andres Gomez-Ruby Cardenas
+ * La clase Equipo  les asigna un color a los equipos, imprima en consola la pista y 
+ * los corredores en sus posiciones iniciales.
+ * Asigna las posiciones de cada corredor.
  */
 public class Equipo {
 
+     //Creacion de Variables
     private String nombreEquipo;
     private int posicionCorredor1;
     private int posicionCorredor2;
     private int posicionCorredor3;
     private String posicion;
-    
-    private String color=null;
+    private String color = null;
 
     public Equipo(String nombreEquipo) {
         this.nombreEquipo = nombreEquipo;
@@ -25,10 +28,12 @@ public class Equipo {
         this.posicionCorredor2 = 20;
         this.posicionCorredor3 = 40;
 
-    }  
-
+    }
     
-    public synchronized String imprimirPosicion() {
+    /*
+    Método que imprime la pista y los corredores.
+    */
+    public String imprimirPosicion() {
         switch (nombreEquipo) {
             case "Cachacos    ":
                 color = "\033[31m";
@@ -40,19 +45,19 @@ public class Equipo {
                 color = "\033[33m";
                 break;
         }
-        posicion = color + "" + nombreEquipo+"█";
+        posicion = color + "" + nombreEquipo + "█";
         for (int j = 0; j <= 60; j++) {
-           
+
             if (j == posicionCorredor1) {
                 posicion += "▀";
-            } else if (j== posicionCorredor2) {
+            } else if (j == posicionCorredor2) {
                 posicion += "▀";
             } else if (j == posicionCorredor3) {
                 posicion += "▀";
             } else {
                 posicion += "═";
             }
-           
+
         }
         return posicion;
     }

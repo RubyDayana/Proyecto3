@@ -10,49 +10,56 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Andres Gomez-Ruby Cardenas
+ * @author Andres Gomez-Ruby Cardenas la clase corredor lidera la ejecución de
+ * los hilos.
  */
 public class Corredor extends Thread {
 
-    
     private String equipo1;
     private String equipo2;
     private String equipo3;
     private int posicion1;
     private int posicion2;
     Equipo equipo;
-    private static final int testigo1=20;
-    private static final int testigo2=40;
-    private static final int testigo3=60;
-    private static final int salida1=1;
-    private static final int salida2=2;
-    private static final int salida3=3;
+    private static final int testigo1 = 20;
+    private static final int testigo2 = 40;
+    private static final int testigo3 = 60;
+    private static final int salida1 = 1;
+    private static final int salida2 = 2;
+    private static final int salida3 = 3;
+
     public Corredor(int posicion1, int posicion2, Equipo equipo) {
         this.equipo = equipo;
         this.posicion1 = posicion1;
         this.posicion2 = posicion2;
     }
 
+    /*
+     Método que arranca los hilos.
+     */
     @Override
     public void run() {
         if (posicion1 == 0) {
             corredorUno();
         } else {
-            esperaJugadores();
+            corredoresEnEspera();
         }
         if (posicion1 == testigo2) {
             corredorDos();
         } else {
-            esperaJugadores();
+            corredoresEnEspera();
         }
         if (posicion1 == testigo2) {
             corredorTres();
         } else {
-            esperaJugadores();
+            corredoresEnEspera();
         }
 
     }
 
+    /*
+     Método que asigna la cantidad de pasos que da cada corredor según un número aleatorio.
+     */
     public int correr(int posicionActual) {
 
         try {
@@ -89,6 +96,9 @@ public class Corredor extends Thread {
         return 0;
     }
 
+    /*
+     Método que determina a que equipo pertenece cada corredor para poder imprimir la posición.
+     */
     public void equipos() {
 
         if (equipo.imprimirPosicion().contains("Cachacos    ")) {
@@ -104,7 +114,10 @@ public class Corredor extends Thread {
         }
     }
 
-    public void esperaJugadores() {
+    /*
+     Metodo que inhabilita a dos de los tres corredores.
+     */
+    public void corredoresEnEspera() {
         synchronized (equipo) {
             try {
                 equipo.wait();
@@ -114,9 +127,12 @@ public class Corredor extends Thread {
         }
     }
 
+    /*
+     Método que permite al primer corredor de cada equipo avanzar hasta la seguda posición.
+     */
     public void corredorUno() {
         while (true) {
-            
+
             int paso = correr(salida1);
             if (paso >= testigo1) {
                 equipo.setPosicionCorredor1(testigo1);
@@ -128,6 +144,9 @@ public class Corredor extends Thread {
         }
     }
 
+    /*
+     Método que permite al segundo corredor de cada equipo avanzar hasta la tercera posición.
+     */
     public void corredorDos() {
         while (true) {
 
@@ -141,7 +160,10 @@ public class Corredor extends Thread {
             }
         }
     }
-
+    
+    /*
+    Método que permite al tercer corredor de cada equipo avanzar hasta la Meta.
+    */
     public void corredorTres() {
 
         while (true) {
@@ -160,13 +182,12 @@ public class Corredor extends Thread {
                         equipo.setNombreEquipo("Llaneros    ");
                         break;
                 }
-                String colorGanador=equipo.getColor();
-                System.out.println(colorGanador+" ");
-                System.out.println(colorGanador+" " + equipo.getNombreEquipo() + " HAN GANADO LA COMPETENCIA POR RELEVOS...  ");
-                System.out.println(colorGanador+" ¡FELICITACIONES!");
-                System.out.println(colorGanador+" ");
+                String colorGanador = equipo.getColor();
+                System.out.println(colorGanador + " ");
+                System.out.println(colorGanador + " " + equipo.getNombreEquipo().toUpperCase() + " HAN GANADO LA COMPETENCIA POR RELEVOS...  ");
+                System.out.println(colorGanador + " ¡FELICITACIONES!");
+                System.out.println(colorGanador + " ");
                 System.exit(0);
-               
 
             }
         }
