@@ -30,7 +30,7 @@ public class Corredor extends Thread {
     @Override
     public void run() {
         if (posicion1 == 0) {
-            corredorUno(); 
+            corredorUno();
         } else {
             esperaJugadores();
         }
@@ -83,18 +83,18 @@ public class Corredor extends Thread {
                 equipo.setPosicionCorredor3(60);
 
                 switch (equipo.getNombreEquipo()) {
-                    case "Cachacos":
-                        equipo.setNombreEquipo("Cachacos");
+                    case "Cachacos    ":
+                        equipo.setNombreEquipo("Cachacos    ");
                         break;
-                    case "Antioqueños":
-                        equipo.setNombreEquipo("Antioqueños");
+                    case "Antioqueños ":
+                        equipo.setNombreEquipo("Antioqueños ");
                         break;
-                    case "Llaneros":
-                        equipo.setNombreEquipo("Llaneros");
+                    case "Llaneros    ":
+                        equipo.setNombreEquipo("Llaneros    ");
                         break;
                 }
                 Carrera carrera = new Carrera();
-                carrera.mostrarGanador(equipo.getNombreEquipo());
+                carrera.ganador(equipo.getNombreEquipo());
 
                 System.exit(0);
             }
@@ -107,7 +107,9 @@ public class Corredor extends Thread {
         } catch (InterruptedException ex) {
             Logger.getLogger(Equipo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        int pasos = (int) Math.floor(Math.random() * 3 + 1);
+        int pasos = (int)(Math.random()*2+1);
+
+     
         switch (posicionActual) {
             case 1:
                 equipo.setPosicionCorredor1(equipo.getPosicionCorredor1() + pasos);
@@ -128,21 +130,18 @@ public class Corredor extends Thread {
     }
 
     public void equipos() {
-        switch (equipo.imprimirPosicion()) {
-            case "Cachacos":
-                equipo1 = equipo.imprimirPosicion();
-                System.out.println(equipo1);
-                break;
 
-            case "Antioqueños":
-                equipo2 = equipo.imprimirPosicion();
-                System.out.println(equipo2);
-                break;
-            case "Llaneros":
-                equipo3 = equipo.imprimirPosicion();
-                System.out.println(equipo3);
-                System.out.println();
-        }
+        if (equipo.imprimirPosicion().contains("Cachacos    ")) {
+            equipo1 = equipo.imprimirPosicion();
+            System.out.println(equipo1);
+        } else if (equipo.imprimirPosicion().contains("Antioqueños ")) {
+            equipo2 = equipo.imprimirPosicion();
+            System.out.println(equipo2);
+        } else if (equipo.imprimirPosicion().contains("Llaneros    ")) {
+            equipo3 = equipo.imprimirPosicion();
+            System.out.println(equipo3);
+            System.out.println();
+        }        
     }
 
     public void esperaJugadores() {

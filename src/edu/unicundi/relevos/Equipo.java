@@ -25,49 +25,34 @@ public class Equipo {
         this.posicionCorredor2 = 20;
         this.posicionCorredor3 = 40;
 
-    }
-
-    public Equipo() {
-
-    }
+    }  
 
     
     public synchronized String imprimirPosicion() {
         switch (nombreEquipo) {
-            case "Cachacos":
+            case "Cachacos    ":
                 color = "\033[31m";
                 break;
-            case "Antioqueños":
+            case "Antioqueños ":
                 color = "\033[32m";
                 break;
-            case "Llaneros":
+            case "Llaneros    ":
                 color = "\033[33m";
                 break;
         }
-        posicion = color + "Equipo: " + nombreEquipo;
+        posicion = color + "" + nombreEquipo;
         for (int j = 0; j <= 60; j++) {
            
-            if (j == posicionCorredor1 && nombreEquipo.contains("Cachacos")) {
-                posicion += "C";
-            } else if (j == posicionCorredor2 && nombreEquipo.contains("Cachacos")) {
-                posicion += "C";
-            } else if (j == posicionCorredor3 && nombreEquipo.contains("Cachacos")) {
-                posicion += "C";
-            } else if (j == posicionCorredor1 && nombreEquipo.contains("Antioqueños")) {
-                posicion += "A";
-            } else if (j == posicionCorredor2 && nombreEquipo.contains("Antioqueños")) {
-                posicion += "A";
-            } else if (j == posicionCorredor3 && nombreEquipo.contains("Antioqueños")) {
-                posicion += "A";
-            } else if (j == posicionCorredor1 && nombreEquipo.contains("Llaneros")) {
-                posicion += "L";
-            } else if (j == posicionCorredor2 && nombreEquipo.contains("Llaneros")) {
-                posicion += "L";
-            } else if (j == posicionCorredor3 && nombreEquipo.contains("Llaneros")) {
-                posicion += "L";
+            if (j == posicionCorredor1) {
+                posicion += "1";
+            } else if (j== posicionCorredor2) {
+                posicion += "2";
+            } else if (j == posicionCorredor3) {
+                posicion += "3";
             } else {
-                posicion += ".";
+                posicion += "=";
             }
+           
         }
         return posicion;
     }

@@ -16,9 +16,9 @@ public class Carrera {
     int segundoRelevo = 40;
     int meta = 60;
 
-    Equipo equipo1 = new Equipo("Cachacos");  // Rojo
-    Equipo equipo2 = new Equipo("Antioqueños"); //Verde
-    Equipo equipo3 = new Equipo("Llaneros"); //Amarillo
+    Equipo equipo1 = new Equipo("Cachacos    ");  // Rojo
+    Equipo equipo2 = new Equipo("Antioqueños "); //Verde
+    Equipo equipo3 = new Equipo("Llaneros    "); //Amarillo
 
     Corredor corredor1Equipo1 = new Corredor(salida, primerRelevo, equipo1);
     Corredor corredor2Equipo1 = new Corredor(primerRelevo, segundoRelevo, equipo1);
@@ -45,11 +45,12 @@ public class Carrera {
         corredor2Equipo3.start();
         corredor3Equipo3.start();
     }
-     public void mostrarGanador(String equipo) {
+    public void ganador(String equipo) {
 
-        System.out.println(" **************************************");
-        System.out.println(" El ganador es el equipo: " + equipo);
-        System.out.println(" **************************************");
+        System.out.println(" ");
+        System.out.println(" ¡" + equipo + "! HAN GANADO LA COMPETENCIA POR RELEVOS...  " );
+        System.out.println(" !FELICITACIONES¡");
+        System.out.println(" ");
 
     }
 
