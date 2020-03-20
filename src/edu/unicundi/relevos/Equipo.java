@@ -40,17 +40,17 @@ public class Equipo {
                 color = "\033[33m";
                 break;
         }
-        posicion = color + "" + nombreEquipo;
+        posicion = color + "" + nombreEquipo+"█";
         for (int j = 0; j <= 60; j++) {
            
             if (j == posicionCorredor1) {
-                posicion += "1";
+                posicion += "▀";
             } else if (j== posicionCorredor2) {
-                posicion += "2";
+                posicion += "▀";
             } else if (j == posicionCorredor3) {
-                posicion += "3";
+                posicion += "▀";
             } else {
-                posicion += "=";
+                posicion += "═";
             }
            
         }
@@ -95,6 +95,10 @@ public class Equipo {
 
     public void setPosicion(String posicion) {
         this.posicion = posicion;
+    }
+
+    public String getColor() {
+        return color;
     }
 
 }
