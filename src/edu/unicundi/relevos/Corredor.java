@@ -47,9 +47,69 @@ public class Corredor extends Thread {
 
     }
 
+    public int correr(int posicionActual) {
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Equipo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int pasos = (int) (Math.random() * 5 + 1);
+
+        switch (posicionActual) {
+            case 1:
+                equipo.setPosicionCorredor1(equipo.getPosicionCorredor1() + pasos);
+
+                if (equipo.getPosicionCorredor1() > 20) {
+                    equipo.setPosicionCorredor1(20);
+                }
+                equipos();
+                return equipo.getPosicionCorredor1();
+
+            case 2:
+                equipo.setPosicionCorredor2(equipo.getPosicionCorredor2() + pasos);
+                if (equipo.getPosicionCorredor2() > 40) {
+                    equipo.setPosicionCorredor2(40);
+                }
+                equipos();
+                return equipo.getPosicionCorredor2();
+
+            case 3:
+                equipo.setPosicionCorredor3(equipo.getPosicionCorredor3() + pasos);
+                equipos();
+                return equipo.getPosicionCorredor3();
+        }
+
+        return 0;
+    }
+
+    public void equipos() {
+
+        if (equipo.imprimirPosicion().contains("Cachacos    ")) {
+            equipo1 = equipo.imprimirPosicion();
+            System.out.println(equipo1);
+        } else if (equipo.imprimirPosicion().contains("Antioqueños ")) {
+            equipo2 = equipo.imprimirPosicion();
+            System.out.println(equipo2);
+        } else if (equipo.imprimirPosicion().contains("Llaneros    ")) {
+            equipo3 = equipo.imprimirPosicion();
+            System.out.println(equipo3);
+            System.out.println();
+        }
+    }
+
+    public void esperaJugadores() {
+        synchronized (equipo) {
+            try {
+                equipo.wait();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     public void corredorUno() {
         while (true) {
-
             int paso = correr(1);
             if (paso >= 20) {
                 equipo.setPosicionCorredor1(20);
@@ -93,63 +153,13 @@ public class Corredor extends Thread {
                         equipo.setNombreEquipo("Llaneros    ");
                         break;
                 }
-                Carrera carrera = new Carrera();
-                carrera.ganador(equipo.getNombreEquipo());
-
+                System.out.println(" ");
+                System.out.println(" ¡" + equipo.getNombreEquipo() + "! HAN GANADO LA COMPETENCIA POR RELEVOS...  ");
+                System.out.println(" !FELICITACIONES¡");
+                System.out.println(" ");
                 System.exit(0);
-            }
-        }
-    }
+               
 
-    public int correr(int posicionActual) {
-        try {
-            Thread.sleep(600);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Equipo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        int pasos = (int)(Math.random()*2+1);
-
-     
-        switch (posicionActual) {
-            case 1:
-                equipo.setPosicionCorredor1(equipo.getPosicionCorredor1() + pasos);
-                equipos();
-                return equipo.getPosicionCorredor1();
-
-            case 2:
-                equipo.setPosicionCorredor2(equipo.getPosicionCorredor1() + pasos);
-                equipos();
-                return equipo.getPosicionCorredor2();
-
-            case 3:
-                equipo.setPosicionCorredor3(equipo.getPosicionCorredor1() + pasos);
-                equipos();
-                return equipo.getPosicionCorredor3();
-        }
-        return 0;
-    }
-
-    public void equipos() {
-
-        if (equipo.imprimirPosicion().contains("Cachacos    ")) {
-            equipo1 = equipo.imprimirPosicion();
-            System.out.println(equipo1);
-        } else if (equipo.imprimirPosicion().contains("Antioqueños ")) {
-            equipo2 = equipo.imprimirPosicion();
-            System.out.println(equipo2);
-        } else if (equipo.imprimirPosicion().contains("Llaneros    ")) {
-            equipo3 = equipo.imprimirPosicion();
-            System.out.println(equipo3);
-            System.out.println();
-        }        
-    }
-
-    public void esperaJugadores() {
-        synchronized (equipo) {
-            try {
-                equipo.wait();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
