@@ -16,7 +16,8 @@ public class Equipo {
     private int posicionCorredor2;
     private int posicionCorredor3;
     private String posicion;
-    private String color;
+    
+    private String color=null;
 
     public Equipo(String nombreEquipo) {
         this.nombreEquipo = nombreEquipo;
@@ -45,6 +46,7 @@ public class Equipo {
         }
         posicion = color + "Equipo: " + nombreEquipo;
         for (int j = 0; j <= 60; j++) {
+           
             if (j == posicionCorredor1 && nombreEquipo.contains("Cachacos")) {
                 posicion += "C";
             } else if (j == posicionCorredor2 && nombreEquipo.contains("Cachacos")) {
